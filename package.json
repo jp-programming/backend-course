@@ -1,0 +1,23 @@
+{
+  "name": "back-end",
+  "version": "1.0.0",
+  "description": "",
+  "main": "User.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jp-programming/backend-course.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jp-programming/backend-course/issues"
+  },
+  "homepage": "https://github.com/jp-programming/backend-course#readme",
+  "dependencies": {
+    "express": "^4.17.3"
+  }
+}
