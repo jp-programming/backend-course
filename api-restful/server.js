@@ -1,10 +1,4 @@
-const { 
-    getProducts,
-    getProduct,
-    postProduct,
-    putProduct,
-    deleteProduct 
-} = require('./api-functions/products');
+const Products = require('./api-functions/products');
 
 const express = require('express');
 const app = express();
@@ -14,8 +8,10 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('public'));
 
+const pd = new Products();
+
 router.get('/', (req, res) => {
-    const products = getProducts();
+    const products = pd.getProducts();
 
     if(products) res.json({ products: products });
     else res.json({ message: 'No products found' });
@@ -23,7 +19,7 @@ router.get('/', (req, res) => {
 
 router.get('/:id', (req, res) => {
     const { id } = req.params;
-    const product = getProduct(Number(id));
+    const product = pd.getProduct(Number(id));
 
     if(product) res.json({ product: product });
     else res.json({ message: 'No product found' })
@@ -31,7 +27,7 @@ router.get('/:id', (req, res) => {
 
 router.post('/', (req, res) => {
     const { body } = req;
-    const product = postProduct(body);
+    const product = pd.postProduct(body);
 
     res.json({ newProduct: product });
 });
@@ -40,7 +36,7 @@ router.put('/:id', (req, res) => {
     const { body } = req;
     const { id } = req.params;
 
-    const product = putProduct(Number(id), body);
+    const product = pd.putProduct(Number(id), body);
 
     if(product) res.json({ updatedProduct: product });
     else res.json({ message: 'No product found' });
@@ -48,7 +44,7 @@ router.put('/:id', (req, res) => {
 
 router.delete('/:id', (req, res) => {
     const { id } = req.params; 
-    const product = deleteProduct(Number(id));
+    const product = pd.deleteProduct(Number(id));
 
     if(product) res.json({ deletedProduct: product });
     else res.json({ message: 'No product found' });

@@ -1,26 +1,31 @@
-const products = [];
+module.exports = class Products {
+    constructor() {
+        this.products = [];
+    };
 
-module.exports = {
-    getProducts: () => {
-        if(products.length) return products;
+    getProducts() {
+        if(this.products.length) return this.products;
         return null;
-    },
-    getProduct: (id) => {
-        const product = products.find(p => p.id === id);
+    };
+
+    getProduct(id) {
+        const product = this.products.find(p => p.id === id);
         return product;
-    },
-    postProduct: (product) => {
-        const maxID = products.reduce((max, obj) => Math.max(max, obj.id), 0);
+    };
+
+    postProduct(product) {
+        const maxID = this.products.reduce((max, obj) => Math.max(max, obj.id), 0);
         const newProduct = {
             id: maxID + 1,
             ...product
         };
 
-        products.push(newProduct);
+        this.products.push(newProduct);
         return newProduct;
-    },
-    putProduct: (id, body) => {
-        const product = products.find(p => p.id === id);
+    };
+
+    putProduct(id, body) {
+        const product = this.products.find(p => p.id === id);
         
         if(!product) return null;
 
@@ -29,18 +34,20 @@ module.exports = {
             ...body
         };
 
-        products.splice(products.indexOf(product), 1, updProduct);
+        const index = this.products.indexOf(product);
+        this.products.splice(index, 1, updProduct);
 
         return updProduct;
-    },
-    deleteProduct: (id) => {
-        const product = products.find(p => p.id === id);
+    };
+
+    deleteProduct(id) {
+        const product = this.products.find(p => p.id === id);
 
         if(!product) return null;
 
-        const index = products.indexOf(product);
-        products.splice(index, 1);
+        const index = this.products.indexOf(product);
+        this.products.splice(index, 1);
 
         return product;
-    }
-};
+    };
+}
