@@ -1,0 +1,16 @@
+<h1>Lista de productos</h1>
+<div class="products">
+    {{#if products}}
+        {{#each products}}
+            <div class="product">
+                <img src="{{thumbnail}}" alt="{{name}}" />
+                <h2>{{name}}</h2>
+                <p>{{price}}</p>
+            </div>
+        {{/each}}
+    {{else}}
+        <p>No se encontraron productos</p>
+    {{/if}}
+</div>
+
+<a href="/">Ir al Formulario</a>

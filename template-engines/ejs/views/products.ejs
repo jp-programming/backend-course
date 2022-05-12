@@ -1,0 +1,16 @@
+<h1>Lista de productos</h1>
+<div class="products">
+    <% if(products) { %>
+        <% products.map(p => { %>
+            <div class="product">
+                <img src=<%= p.thumbnail %> alt=<%= p.name %> />
+                <h2><%= p.name %> </h2>
+                <p><%= p.price %></p>
+            </div>
+        <% }); %>
+    <% } else { %>
+        <p>No se encontraron productos</p>
+    <% } %>
+</div>
+
+<a href="/">Ir al Formulario</a>

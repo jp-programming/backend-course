@@ -1,0 +1,19 @@
+extends main
+
+block content
+    h1="Ingresar producto"
+
+    form(action="/products" method="post")
+        label(for="name")="Nombre"
+        input(type="text" id="name" name="name" required)
+
+        label(for="price")="Precio"
+        input(type="text" id="price" name="price" required)
+
+        label(for="thumbnail")="Foto URL"
+        input(type="text" id="thumbnail" name="thumbnail" required)
+
+        button(type="submit")="Enviar"
+
+    a(href="/products")="Ir a la lista de productos"
+

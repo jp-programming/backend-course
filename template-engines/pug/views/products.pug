@@ -1,0 +1,17 @@
+extends main
+
+block content
+    h1="Lista de productos"
+
+    .products
+        if products
+            - products.map(p => {
+                .product
+                    img(src=p.thumbnail alt=p.name) 
+                    h2=p.name
+                    p=p.price
+            - })
+        else
+            <p>No se encontraron productos</p>
+
+    a(href="/")="Ir al Formulario"
