@@ -32,12 +32,18 @@ module.exports = class Products {
 
     getAll() {
         this.reconnect();
-        return this.knex(this.tableName).select('*');
+        return this.knex(this.tableName).select('*')
+            .then((res) => res)
+            .catch((err) => console.log(err))
+            .finally(() => this.close());
     };
 
     insert(row) {
         this.reconnect();
-        return this.knex(this.tableName).insert(row);
+        return this.knex(this.tableName).insert(row)
+            .then(() => undefined)
+            .catch((err) => console.log(err))
+            .finally(() => this.close());
     };
 
     close() {
