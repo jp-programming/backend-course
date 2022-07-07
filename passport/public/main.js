@@ -3,16 +3,7 @@ const socket = io.connect();
 const logoutBtn = document.getElementById('logoutBtn');
 
 const handleLogout = () => {
-    fetch('http://localhost:8080/logoutAuth', {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
-      .then((res) => res.json())
-      .catch((err) => {
-        alert('Ha ocurrido un error: ' + err.message)
-      })
+    location.href = '/logout';
 }
 
 logoutBtn.addEventListener('click', handleLogout);

@@ -6,39 +6,46 @@ const MongoContainer = require('./MongoContainer');
 
 const users = new MongoContainer();
 
-passport.use('register', new LocalStrategy( async (name, password, done) => {
-    const user = await users.getByName(name);
+passport.use('register', new LocalStrategy(
+    { usernameField: 'name', passwordField: 'password' },
+    async (name, password, done) => {
+        const user = await users.getByName(name);
 
-    if (user) return done(null, false, { message: 'User already exists' });
+        if (user) return done(null, false, { message: 'User already exists' });
 
-    return bcrypt.hash(password, 10, async (err, hash) => {
-        if (err) return done(err);
+        return bcrypt.hash(password, 10, async (err, hash) => {
+            if (err) return done(err);
 
-        const user = { name, password };
-        await users.save({ ...user, password: hash });
+            const _id = await users.save({ name, password: hash });
+            const user = { _id, name, password };
 
-        return done(null, user);
-    });
-}));
+            return done(null, user);
+        });
+    }
+));
 
-passport.use('login', new LocalStrategy((name, password, done) => {
-    const user = users.getByName(name);
-    console.log('User', name)
-    if (!user) return done(null, false, { message: 'User not found' });
+passport.use('login', new LocalStrategy(
+    { usernameField: 'name', passwordField: 'password' },
+    async (name, password, done) => {
+        const user = await users.getByName(name);
+        
+        if (!user) return done(null, false, { message: 'User not found' });
 
-    return bcrypt.compare(password, user.password, (err, res) => {
-        if (err) return done(err);
-        if (!res) return done(null, false, { message: 'Wrong password' });
+        return bcrypt.compare(password, user.password, (err, res) => {
+            if (err) return done(err);
+            if (!res) return done(null, false, { message: 'Wrong password' });
 
-        return done(null, user);
-    });
-}));
+            return done(null, user);
+        });
+    }
+));
 
 passport.serializeUser((user, done) => {
     done(null, user._id);
 });
 
-passport.deserializeUser(async (id, done) => {
-    const user = await users.getById(id);
+passport.deserializeUser(async (_id, done) => {
+    const user = await users.getById(_id);
     done(null, user);
 });
+

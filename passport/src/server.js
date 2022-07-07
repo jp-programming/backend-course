@@ -2,15 +2,15 @@ const { pd } = require('./script');
 const { createProducts } = require('./lib/fakerProducts');
 const FirebaseContainer = require('./lib/FirebaseContainer');
 const { auth } = require('./middlewares/auth');
-require('./lib/passport');
 
 const express = require('express');
 const session = require('express-session');
+const passport = require('passport');
 const { Server: HttpServer } = require('http');
 const { Server: IOServer } = require('socket.io');
-const passport = require('passport');
 
 const app = express();
+require('./lib/passport');  
 const MongoStore = require('connect-mongo');
 const httpServer = new HttpServer(app);
 const io = new IOServer(httpServer);
@@ -70,7 +70,7 @@ app.get('/login-error', (req, res) => {
     res.render('login-error');
 });
 
-app.get('/logoutAuth', (req, res) => {
+app.get('/logout', (req, res) => {
     req.logout(err => {
         res.redirect('/login')
     });

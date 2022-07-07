@@ -31,7 +31,7 @@ module.exports = class MongoContainer {
         this.db.connection();
 
         try {
-            const data = await User.findOne(id, { __v: 0 });
+            const data = await User.findById(id, { __v: 0 });
 
             return data;
         } catch (error) {
@@ -43,8 +43,8 @@ module.exports = class MongoContainer {
         this.db.connection();
 
         try {
-            const data = await User.findOne(name, { __v: 0 });
-
+            const data = await User.findOne({ name: name }, { __v: 0 });
+            
             return data;
         } catch (error) {
             console.log(error);

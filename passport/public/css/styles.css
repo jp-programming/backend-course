@@ -16,6 +16,36 @@ body {
     padding: 5rem 0;
 }
 
+#login-form {
+    font-size: 1.6rem;
+}
+
+#register-form {
+    font-size: 1.6rem;
+}
+
+.error {
+    width: 80%;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: red;
+    font-size: 1.6rem;
+    color: white;
+}
+
+.backLink {
+    color: black;
+    padding: 0.5rem 1rem;
+    background-color: #f5f5f5;
+    text-decoration: none;
+    transition: 1s;
+}
+
+.backLink:hover {
+    background-color: black;
+    color: #f5f5f5
+}
+
 .user-info {
     display: flex;
     justify-content: space-around;
