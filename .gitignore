@@ -1,4 +1,5 @@
 clase*
 mongodb/ecommerce
 node_modules
+child-process/src/.env
 package-lock.json
