@@ -1,3 +1,4 @@
+require('dotenv').config();
 const { pd } = require('./script');
 const { createProducts } = require('./lib/fakerProducts');
 const FirebaseContainer = require('./lib/FirebaseContainer.js');

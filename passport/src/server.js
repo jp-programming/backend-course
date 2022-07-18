@@ -1,3 +1,4 @@
+require('dotenv').config();
 const { pd } = require('./script');
 const { createProducts } = require('./lib/fakerProducts');
 const FirebaseContainer = require('./lib/FirebaseContainer');
@@ -20,14 +21,12 @@ const advancedOptions = {
     useUnifiedTopology: true,
 };
 
-const mongoURL = 'mongodb+srv://root:root@cluster0.pxkve3d.mongodb.net/sessions?retryWrites=true&w=majority';
-
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static('../public'));
 app.use(session({
     store: MongoStore.create({
-        mongoUrl: mongoURL,
+        mongoUrl: process.env.MONGODB_URL,
         mongoOptions: advancedOptions,
         ttl: 600
     }),

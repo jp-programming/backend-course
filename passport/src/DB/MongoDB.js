@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const URL = `mongodb+srv://root:root@cluster0.pxkve3d.mongodb.net/sessions?retryWrites=true&w=majority`;
+const URL = process.env.MONGODB_URL;
 
 const mongo = { 
     connection: () => {
