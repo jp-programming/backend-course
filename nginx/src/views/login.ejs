@@ -4,13 +4,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="css/styles.css">
+    <link rel="stylesheet" type="text/css" href="../css/styles.css">
     <title>Login</title>
 </head>
 <body>
     <div class="container">
         <h1>Log In</h1>
-        <form id="login-form" action="/loginAuth" method="post" autocomplete="off">
+        <form id="login-form" action="/app/loginAuth" method="post" autocomplete="off">
             <label for="name">Name</label>
             <input type="text" name="name" id="name" placeholder="Name" required>
             <label for="password">Password</label>
@@ -19,7 +19,7 @@
             <button type="submit">Login</button>
         </form>
 
-        <p>Don't have an account? <a href="/register">Register</a></p>
+        <p>Don't have an account? <a href="/app/register">Register</a></p>
     </div>
 </body>
 </html>

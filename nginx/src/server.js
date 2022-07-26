@@ -2,7 +2,7 @@ require('dotenv').config();
 const { pd } = require('./script');
 const { createProducts } = require('./lib/fakerProducts');
 const FirebaseContainer = require('./lib/FirebaseContainer');
-const { auth } = require('./middlewares/auth');
+const appRouter = require('./routers/appRouter');
 const randomRouter = require('./routers/randomRouter');
 const { infoRouter, cpus} = require('./routers/infoRouter');
 
@@ -22,6 +22,7 @@ const io = new IOServer(httpServer);
 
 const options = { alias: { p: "PORT", mode: "MODE"}, default: { PORT: 8080, MODE: "FORK" } };
 const { PORT, MODE } = parseArgs(process.argv.slice(2), options);
+
 
 if(MODE === 'CLUSTER' && cluster.isPrimary) {
     const numCpus = cpus().length;
@@ -65,46 +66,7 @@ if(MODE === 'CLUSTER' && cluster.isPrimary) {
     app.use('/info', infoRouter);
 
     app.set('view engine', 'ejs');
-
-    app.get('/', auth, (req, res) => {
-        res.render('main', { user: req.user.name });
-    });
-
-    app.get('/register', (req, res) => {
-        if( req.isAuthenticated() ) res.redirect('/');
-        else res.render('register');
-    });
-
-    app.post('/registerAuth', passport.authenticate('register', 
-        { failureRedirect: '/register-error', successRedirect: '/login' }
-    ));
-
-    app.get('/register-error', (req, res) => {
-        res.render('register-error');
-    });
-
-    app.get('/login', (req, res) => {
-        if( req.isAuthenticated() ) res.redirect('/');
-        else res.render('login');
-    });
-
-    app.post('/loginAuth', passport.authenticate('login', 
-        { failureRedirect: '/login-error', successRedirect: '/' }
-    ));
-
-    app.get('/login-error', (req, res) => {
-        res.render('login-error');
-    });
-
-    app.get('/logout', (req, res) => {
-        req.logout(err => {
-            res.redirect('/login')
-        });
-    });
-
-    app.get('/products-test', (req, res) => {
-        res.render('productsTest')
-    });
+    app.use('/app', appRouter);
 
     const chat = new FirebaseContainer('messages');
 
