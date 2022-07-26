@@ -23,6 +23,7 @@
     "@babel/preset-env": "^7.17.12",
     "@faker-js/faker": "^7.3.0",
     "bcrypt": "^5.0.1",
+    "cluster": "^0.7.7",
     "connect-mongo": "^4.6.0",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.0.1",
