@@ -2,9 +2,10 @@
   "name": "back-end",
   "version": "1.0.0",
   "description": "",
-  "main": "User.js",
+  "main": "./loggers-gzip/src/server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node ./loggers-gzip/src/lib/autocannon.js",
+    "start": "0x ./loggers-gzip/src/server.js"
   },
   "repository": {
     "type": "git",
@@ -22,8 +23,10 @@
     "@babel/core": "^7.17.12",
     "@babel/preset-env": "^7.17.12",
     "@faker-js/faker": "^7.3.0",
+    "autocannon": "^7.9.0",
     "bcrypt": "^5.0.1",
     "cluster": "^0.7.7",
+    "compression": "^1.7.4",
     "connect-mongo": "^4.6.0",
     "cookie-parser": "^1.4.6",
     "dotenv": "^16.0.1",
@@ -40,6 +43,8 @@
     "normalizr": "^3.6.2",
     "passport": "^0.6.0",
     "passport-local": "^1.0.0",
+    "pino": "^8.3.1",
+    "pino-pretty": "^8.1.0",
     "pug": "^3.0.2",
     "socket.io": "^4.5.0",
     "sqlite3": "^5.0.8",
