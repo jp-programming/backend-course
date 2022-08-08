@@ -1,0 +1,3 @@
+[submodule "heroku-deploy"]
+	path = heroku-deploy
+	url = git@github.com:jp-programming/heroku-deploy.git
