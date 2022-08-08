@@ -15,13 +15,13 @@ const buildInfoLogger = () => {
 };
 
 const buildWarnLogger = () => {
-    const warnLogger = pino('../logs/warn.log');
+    const warnLogger = pino('./logs/warn.log');
     warnLogger.level = 'warn';
     return warnLogger;
 }
 
 const buildErrorLogger = () => {
-    const errorLogger = pino('../logs/error.log');
+    const errorLogger = pino('./logs/error.log');
     errorLogger.level = 'error';
     return errorLogger;
 }

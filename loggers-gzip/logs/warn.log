@@ -1,1 +1,4 @@
 {"level":40,"time":1659397419268,"pid":5056,"hostname":"DESKTOP-E5D7Q7V","msg":"GET /infow not found"}
+{"level":40,"time":1659987246576,"pid":1296,"hostname":"DESKTOP-E5D7Q7V","msg":"GET / not found"}
+{"level":40,"time":1659987246828,"pid":1296,"hostname":"DESKTOP-E5D7Q7V","msg":"GET /favicon.ico not found"}
+{"level":40,"time":1659987628670,"pid":20332,"hostname":"DESKTOP-E5D7Q7V","msg":"GET / not found"}

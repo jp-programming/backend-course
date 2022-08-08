@@ -1,11 +1,11 @@
 require('dotenv').config();
-const { pd } = require('./script');
-const { createProducts } = require('./lib/fakerProducts');
-const FirebaseContainer = require('./lib/FirebaseContainer');
-const appRouter = require('./routers/appRouter');
-const randomRouter = require('./routers/randomRouter');
-const { infoRouter, cpus} = require('./routers/infoRouter');
-const logger = require('./lib/logger');
+const { pd } = require('./src/script');
+const { createProducts } = require('./src/lib/fakerProducts');
+const FirebaseContainer = require('./src/lib/FirebaseContainer');
+const appRouter = require('./src/routers/appRouter');
+const randomRouter = require('./src/routers/randomRouter');
+const { infoRouter, cpus} = require('./src/routers/infoRouter');
+const logger = require('./src/lib/logger');
 
 const compression = require('compression');
 const parseArgs = require('minimist');
@@ -17,7 +17,7 @@ const { Server: HttpServer } = require('http');
 const { Server: IOServer } = require('socket.io');
 
 const app = express();
-require('./lib/passport');  
+require('./src/lib/passport');  
 const MongoStore = require('connect-mongo');
 const httpServer = new HttpServer(app);
 const io = new IOServer(httpServer);
@@ -50,7 +50,7 @@ if(MODE === 'CLUSTER' && cluster.isPrimary) {
 
     app.use(express.json());
     app.use(express.urlencoded({ extended: true }));
-    app.use(express.static('../public'));
+    app.use(express.static('./public'));
     app.use(session({
         store: MongoStore.create({
             mongoUrl: process.env.MONGO_URL,
@@ -67,6 +67,7 @@ if(MODE === 'CLUSTER' && cluster.isPrimary) {
     app.use('/api/randoms', randomRouter);
     app.use('/info', infoRouter);
 
+    app.set('views', './src/views');
     app.set('view engine', 'ejs');
     app.use('/app', appRouter);
 
