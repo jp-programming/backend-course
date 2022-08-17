@@ -1,3 +1,6 @@
 [submodule "heroku-deploy"]
 	path = heroku-deploy
 	url = git@github.com:jp-programming/heroku-deploy.git
+[submodule "twilio-mailing"]
+	path = twilio-mailing
+	url = git@github.com:jp-programming/twilio-mailing.git
