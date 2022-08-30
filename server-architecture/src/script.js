@@ -1,6 +1,6 @@
-const daosFactory = require('./db/daosFactory');
+const productsRepo = require('./db/repos/productsRepo');
 
-const pd = new daosFactory().getDao('products');
+const pd = new productsRepo();
 
 pd.createTable(
     (table) => {

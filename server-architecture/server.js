@@ -1,6 +1,7 @@
 require('dotenv').config();
 const { pd } = require('./src/script');
 const { createProducts } = require('./src/lib/fakerProducts');
+const chatRepo = require('./src/db/repos/chatRepo');
 const daosFactory = require('./src/db/daosFactory');
 const logger = require('./src/lib/logger');
 
@@ -80,7 +81,7 @@ if(MODE === 'CLUSTER' && cluster.isPrimary) {
         res.status(404).send('404 Page Not found');
     });
 
-    const chat = new daosFactory().getDao('messages');
+    const chat = new chatRepo();
     const cart = new daosFactory().getDao('cart');
     
     io.on('connection', async socket => {
