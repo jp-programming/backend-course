@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Colors</title>
+</head>
+<body>
+    <div style="height:100vh;background-color:black;">
+        <form id="submitForm">
+            <input type="color" name="color" id="inputColor">
+            <button type="submit">Enviar</button>
+        </form>
+    
+        <span style="color:red;" id="colorError"></span>
+        <ul style="font-size:20px;" id="colorsList"></ul>
+    </div>
+
+    <script>
+        const submitForm = document.getElementById('submitForm');
+
+        const getColors = async () => {
+            const url = 'http://localhost:8000/colors'
+            const response = await fetch(url);
+            const { colors } = await response.json();
+
+            return colors;
+        };
+
+        const colorItem = async (colorCode) => {
+            const colorName = await getColorName(colorCode);
+            const colorsList = document.getElementById('colorsList');
+            colorsList.innerHTML += `<li style="color:${colorCode};">${colorName}</li>`;
+        }
+
+        const renderColors = async () => {
+            const colors = await getColors();
+            if(!colors.length) return;
+
+            colors.forEach(async colorCode => await colorItem(colorCode));
+        };
+        renderColors();
+
+        const postColor = async colorCode => {
+            const url = 'http://localhost:8000/colors';
+            const response = await fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ color: colorCode })
+            });
+
+            const json = await response.json();
+            return json;
+        };
+
+        const getColorName = async colorCode => {
+            const colorParsed = colorCode.substring(1);
+            const url = `https://www.thecolorapi.com/id?hex=${colorParsed}&format=json`;
+            const response = await fetch(url);
+            
+            const json = await response.json();
+            return json.name.value;
+        };
+
+        const renderColor = async e => {
+            e.preventDefault();
+
+            const colorCode = document.getElementById('inputColor').value;
+            const json = await postColor(colorCode);
+
+            const colorError = document.getElementById('colorError');
+            if(!json.created) {
+                colorError.innerText = 'Este color ya existe';
+                return
+            }
+
+            colorError.innerText = '';
+            await colorItem(colorCode);
+        };
+
+        submitForm.addEventListener('submit', (e) => renderColor(e));
+    </script>
+</body>
+</html>
