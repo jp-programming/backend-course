@@ -4,3 +4,6 @@
 [submodule "twilio-mailing"]
 	path = twilio-mailing
 	url = git@github.com:jp-programming/twilio-mailing.git
+[submodule "final-project"]
+	path = final-project
+	url = https://github.com/jp-programming/final-project.git
